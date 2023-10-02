@@ -13,6 +13,14 @@ class Cartpage extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.canvasColor,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            )),
         backgroundColor: Colors.black,
         title: "cart".text.make(),
       ),
@@ -77,15 +85,20 @@ class _CartlistState extends State<_Cartlist> {
         : ListView.builder(
             itemCount: _cart.items.length,
             itemBuilder: (context, index) => ListTile(
-                  leading: Icon(Icons.done),
+                  leading: CircleAvatar(
+                    radius: 18,
+                    backgroundImage: NetworkImage(_cart.items[index].image),
+                  ),
                   trailing: IconButton(
                     icon: Icon(Icons.remove_circle_outline),
                     onPressed: () {
                       _cart.remove(_cart.items[index]);
+                      setState(() {});
                     },
                   ),
                   title: _cart.items[index].name.text.make(),
-                  textColor: Colors.white,
+                  subtitle: _cart.items[index].desc.text.make(),
+                  textColor: Colors.black,
                 ));
   }
 }
